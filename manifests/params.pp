@@ -7,7 +7,6 @@ class ntp::params {
   $keys_controlkey   = ''
   $keys_requestkey   = ''
   $keys_trusted      = []
-  $package_ensure    = 'present'
   $preferred_servers = []
   $service_enable    = true
   $service_ensure    = 'running'
@@ -27,6 +26,7 @@ class ntp::params {
       $keys_file = '/etc/ntp.keys'
       $driftfile = '/etc/ntp.drift'
       $package_name = [ 'bos.net.tcp.client' ]
+      $package_ensure    = 'present'
       $restrict          = [
         'default nomodify notrap nopeer noquery',
         '127.0.0.1',
@@ -44,6 +44,7 @@ class ntp::params {
       $keys_file       = '/etc/ntp/keys'
       $driftfile       = '/var/lib/ntp/drift'
       $package_name    = [ 'ntp' ]
+      $package_ensure    = 'present'
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -63,6 +64,7 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
+      $package_ensure    = 'present'
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -81,6 +83,7 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
+      $package_ensure    = 'present'
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -100,6 +103,7 @@ class ntp::params {
       $driftfile       = '/var/db/ntpd.drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net/ntp']
+      $package_ensure    = 'present'
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -119,6 +123,7 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
+      $package_ensure    = 'present'
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -137,6 +142,7 @@ class ntp::params {
       $driftfile    = '/var/ntp/ntp.drift'
       $keys_file    = '/etc/inet/ntp.keys'
       $package_name = [ 'SUNWntpr', 'SUNWntpu' ]
+      $package_ensure    = 'present'
       $restrict     = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -157,6 +163,7 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net-misc/ntp']
+      $package_ensure    = 'present'
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -171,6 +178,23 @@ class ntp::params {
         '3.gentoo.pool.ntp.org',
       ]
     }
+    'Darwin': {
+      $config          = '/etc/ntp.conf'
+      $driftfile       = '/var/db/ntp.drift'
+      $keys_file       = '/etc/ntp/keys'
+      $package_name    = [ 'ntp' ]
+      $package_ensure    = 'absent'
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
+      $service_name    = 'org.ntp.ntpd'
+      $servers         = [
+        'time.apple.com',
+      ]
+    }
     'Linux': {
       # Account for distributions that don't have $::osfamily specific settings.
       # Before Facter 1.7.0 Gentoo did not have its own $::osfamily
@@ -180,6 +204,7 @@ class ntp::params {
           $driftfile       = '/var/lib/ntp/drift'
           $keys_file       = '/etc/ntp/keys'
           $package_name    = ['net-misc/ntp']
+          $package_ensure    = 'present'
           $restrict          = [
             'default kod nomodify notrap nopeer noquery',
             '-6 default kod nomodify notrap nopeer noquery',
